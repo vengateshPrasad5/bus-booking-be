@@ -1,11 +1,12 @@
 package com.busbookingbe.app.Entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -21,16 +22,23 @@ public class Bus {
     private String source;
     private String destination;
     @Column(name = "departure_time")
-    private Date departureTime;
+    private String departureTime;
     @Column(name = "arrival_time")
-    private Date arrivalTime;
+    private String arrivalTime;
     private long price;
     @Column(name = "bus_type")
     private String busType;
     @Column(name = "no_of_seats")
     private int numberOfSeats;
 
+    @OneToMany(mappedBy = "bus", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private List<Seat> seats;
+
 //    @OneToMany(mappedBy = "bus" , cascade = CascadeType.ALL)
-////    @JoinColumn(name = "bus_id", referencedColumnName = "busId")
 //    private List<Seat> seat;
+
+//    @OneToMany(mappedBy = "bus", cascade = CascadeType.ALL)
+//    private List<Booking> bookings;
+
 }
