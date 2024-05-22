@@ -1,6 +1,5 @@
 package com.busbookingbe.app.Entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -22,22 +21,20 @@ public class Booking {
     private String reservationDate;
     private String status;
 
-//    @JsonIgnore
     @OneToOne
     @JoinColumn(name = "customer_id")
     private User user;
 
     @ManyToOne
     @JoinColumn(name = "bus_id")
-    @JsonIgnore
     private Bus bus;
 
-    @OneToMany
-    @JoinColumn(name = "seat_id")
-//    @JsonManagedReference
-    private List<Seat> seats;
+//    @OneToMany
+//    @JoinColumn(name = "seat_id")
+//    private List<Seat> seats;
 
     @OneToMany(mappedBy = "booking", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<Passenger> passengerList;
 
 }

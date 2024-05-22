@@ -9,6 +9,7 @@ import java.util.List;
 public interface BookingService {
     List<BookingDTO> getBookingByReservationDate(String reservationDate);
 
+
     BookingDTO createBooking(BookingDTO bookingDTO);
 
 }

@@ -2,10 +2,12 @@ package com.busbookingbe.app.Controller;
 
 import com.busbookingbe.app.Dto.BookingDTO;
 import com.busbookingbe.app.Service.ServiceImpl.BookingServiceImpl;
+import jakarta.annotation.security.PermitAll;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
@@ -13,12 +15,12 @@ import java.util.Date;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/booking")
 public class BookingController {
     @Autowired
     BookingServiceImpl bookingServiceImpl;
 
-    @GetMapping("/getBookingList")
+    @GetMapping("/getBookingListByDate")
     public ResponseEntity<List<BookingDTO>>findByBookingList(@RequestParam String reservationDate) {
         List<BookingDTO> bookingList = bookingServiceImpl.getBookingByReservationDate(reservationDate);
         return new ResponseEntity<>(bookingList, HttpStatus.OK);

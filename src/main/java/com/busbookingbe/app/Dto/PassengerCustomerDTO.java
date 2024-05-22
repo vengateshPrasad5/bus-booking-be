@@ -1,18 +1,19 @@
 package com.busbookingbe.app.Dto;
 
+import com.busbookingbe.app.Entity.Seat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PassengerDTO {
+public class PassengerCustomerDTO {
     private Long passengerId;
     private String name;
-    private int age;
+    private String age;
     private String gender;
-    private Long seatId;
-    private Long userId;
-    private Long bookingId;
+    private Seat seat;
 }
+

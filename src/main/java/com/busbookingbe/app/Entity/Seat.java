@@ -31,7 +31,7 @@ public class Seat {
     @JsonBackReference
     private Bus bus;
 
-//    @OneToMany(mappedBy = "seat")
-//    private List<Booking> bookings;
+//    @ManyToOne
+//    private Booking booking;
 
 }
