@@ -18,6 +18,10 @@ public class Passenger {
     private String age;
     private String gender;
 
+    @OneToOne
+    @JoinColumn(name = "seat_id")
+    private Seat seat;
+
     @ManyToOne
     @JoinColumn(name = "customer_id")
     private User user;
