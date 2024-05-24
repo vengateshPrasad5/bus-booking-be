@@ -22,7 +22,7 @@ public class Passenger {
     private int age;
     private String gender;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "seat_id")
     private Seat seat;
 

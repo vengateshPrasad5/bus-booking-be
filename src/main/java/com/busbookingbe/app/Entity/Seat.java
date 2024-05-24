@@ -5,10 +5,6 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.apache.catalina.LifecycleState;
-import org.springframework.context.annotation.Lazy;
-
-import java.util.List;
 
 @Entity
 @Data
