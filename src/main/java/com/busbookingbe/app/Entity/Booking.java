@@ -21,7 +21,7 @@ public class Booking {
     private String reservationDate;
     private String status;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "customer_id")
     private User user;
 
