@@ -129,4 +129,12 @@ public class BookingRepositoryTest {
        assertThat(bookingList).isNotNull();
        assertThat(bookingList.size()).isEqualTo(2);
    }
+    @Test
+    public void whenFindBus_thenReturnListByReservationDate(){
+        bookingRepository.save(booking);
+        bookingRepository.save(booking1);
+        List<Booking> bookingByDate = bookingRepository.findByReservationDate("2024-05-23");
+        assertThat(bookingByDate).isNotNull();
+        assertThat(bookingByDate.size()).isGreaterThan(0);
+    }
 }
