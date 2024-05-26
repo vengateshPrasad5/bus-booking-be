@@ -53,18 +53,7 @@ public class BookingServiceImpl implements BookingService {
                                       .orElseThrow(()->new RuntimeException("User not found")));
         booking.setBus(busRepository.findById(bookingDTO.getBusId())
                                     .orElseThrow(()->new RuntimeException("Bus not found")));
-//        booking.setSeat(seatRepository.findById(bookingDTO.getSeatId()).orElseThrow(()->new RuntimeException("Seat not found")));
 
-//        List<Seat> seatList = bookingDTO.getSeats().stream().map(dto->{
-//            Seat seat = new Seat();
-//            seat.setSeatId(dto.getSeatId());
-//            seat.setSeatNo(dto.getSeatNo());
-//            seat.setHeight(dto.getHeight());
-//            seat.setBusRow(dto.getBusRow());
-//            seat.setBus(booking.getBus());
-//            return seat;
-//        }).collect(Collectors.toList());
-//        booking.setSeats(seatList);
         List<Passenger> passengers = bookingDTO.getPassengerList().stream().map(dto -> {
             Passenger passenger = new Passenger();
             passenger.setName(dto.getName());
@@ -77,6 +66,7 @@ public class BookingServiceImpl implements BookingService {
             return passenger;
         }).collect(Collectors.toList());
         booking.setPassengerList(passengers);
+        modelMapper.getConfiguration().setAmbiguityIgnored(true);
         return modelMapper.map(bookingRepository.save(booking),BookingDTO.class);
     }
 }
