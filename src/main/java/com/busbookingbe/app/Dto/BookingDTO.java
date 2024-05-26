@@ -9,7 +9,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class BookingDTO {
-//    private Long bookingId;
+    private Long bookingId;
     private String reservationDate;
     private String status;
     private Long userId;
