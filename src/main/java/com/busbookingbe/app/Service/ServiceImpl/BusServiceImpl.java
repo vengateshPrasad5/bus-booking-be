@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -32,10 +33,21 @@ public class BusServiceImpl implements BusService {
     }
 
     @Override
-    public List<BusDTO> getBySourceDestinationAndDepartureDate(String source, String destination, String departureTime) {
+    public List<BusDTO> getBySourceDestinationAndDepartureDate(String source, String destination, LocalDate departureTime) {
         return busRepository.findBySourceDestinationAndDepartureDate(source,destination,departureTime)
                 .stream().map(bus -> modelMapper.map(bus, BusDTO.class))
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public List<String> getDistinctSource() {
+        return busRepository.findDistinctSource();
+    }
+
+    @Override
+    public List<String> getDistinctDestination() {
+        return busRepository.findDistinctDestination();
+    }
+
 
 }
