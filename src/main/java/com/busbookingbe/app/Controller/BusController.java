@@ -9,9 +9,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
-
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/api/v1/bus")
 public class BusController {
@@ -46,9 +50,12 @@ public class BusController {
     @GetMapping("/searchBus")
     public ResponseEntity<List<BusDTO>> getBuses(@RequestParam String source,
                                                  @RequestParam String destination,
-                                                 @RequestParam LocalDate departureDate)
-    {
-        List<BusDTO> busList = busServiceImpl.getBySourceDestinationAndDepartureDate(source, destination, departureDate);
+                                                 @RequestParam String departureDate) throws ParseException {
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+//        LocalDate reservationDate = LocalDate.parse(departureDate, formatter);
+        Date date=new SimpleDateFormat("yyyy-MM-dd").parse(departureDate);
+        System.out.println("date = " + date);
+        List<BusDTO> busList = busServiceImpl.getBySourceDestinationAndDepartureDate(source, destination, date);
         return new ResponseEntity<>(busList, HttpStatus.OK);
     }
 }

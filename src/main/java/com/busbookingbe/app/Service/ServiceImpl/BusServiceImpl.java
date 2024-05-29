@@ -9,6 +9,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,8 +34,9 @@ public class BusServiceImpl implements BusService {
     }
 
     @Override
-    public List<BusDTO> getBySourceDestinationAndDepartureDate(String source, String destination, LocalDate departureTime) {
-        return busRepository.findBySourceDestinationAndDepartureDate(source,destination,departureTime)
+    public List<BusDTO> getBySourceDestinationAndDepartureDate(String source, String destination, Date departureTime) {
+        System.out.println("departureTime = " + departureTime);
+        return busRepository.findBySourceAndDestinationAndDepartureTime(source,destination,departureTime)
                 .stream().map(bus -> modelMapper.map(bus, BusDTO.class))
                 .collect(Collectors.toList());
     }

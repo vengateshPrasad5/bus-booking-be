@@ -6,7 +6,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -22,9 +24,10 @@ public class Bus {
     private String source;
     private String destination;
     @Column(name = "departure_time")
-    private String departureTime;
+    @Temporal(TemporalType.DATE)
+    private Date departureTime;
     @Column(name = "arrival_time")
-    private String arrivalTime;
+    private LocalDateTime arrivalTime;
     private long price;
     @Column(name = "bus_type")
     private String busType;

@@ -9,10 +9,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
-@OpenAPIDefinition(servers = {@Server(url= "https:bookingManagement1.com"),
+@OpenAPIDefinition(
+		servers = {@Server(url= "https:bookingManagement1.com"),
 		@Server(url= "https:bookingManagement2.com") },
 		info = @Info(title = "Booking Methods", version = "v1",
-		description = "CRUD Operations in Bus Booking"))
+		description = "CRUD Operations in Bus Booking")
+)
 public class AppApplication {
 
 	@Bean

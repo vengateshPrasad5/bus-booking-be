@@ -5,7 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -16,8 +18,8 @@ public class BusDTO {
     private String name;
     private String source;
     private String destination;
-    private String departureTime;
-    private String arrivalTime;
+    private Date departureTime;
+    private LocalDateTime arrivalTime;
     private long price;
     private String busType;
     private int numberOfSeats;

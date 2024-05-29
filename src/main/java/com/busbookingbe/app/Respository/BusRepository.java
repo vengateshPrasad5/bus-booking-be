@@ -8,18 +8,20 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
 @Repository
 public interface BusRepository extends JpaRepository<Bus,Long> {
 
-    @Query("SELECT b FROM Bus b WHERE b.source = :source AND " +
-            "b.destination = :destination AND STR_TO_DATE(DATE(b.departureTime), '%Y-%m-%d')  = :departureDate")
-    List<Bus> findBySourceDestinationAndDepartureDate(
-            @Param("source") String source,
-            @Param("destination") String destination,
-            @Param("departureDate") LocalDate departureDate);
+//    @Query(value = "SELECT * FROM bus WHERE source = :source AND " +
+//            "destination = :destination AND DATE(departure_time) = :departureDate",
+//            nativeQuery = true)
+    List<Bus> findBySourceAndDestinationAndDepartureTime(
+            String source,
+            String destination,
+            Date departureTime);
 
     @Query("SELECT DISTINCT source FROM Bus")
     List<String> findDistinctSource();
