@@ -1,19 +1,15 @@
 package com.busbookingbe.app.Controller;
 
 import com.busbookingbe.app.Dto.BusDTO;
-import com.busbookingbe.app.Entity.Bus;
 import com.busbookingbe.app.Service.ServiceImpl.BusServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.List;
 @CrossOrigin("*")
 @RestController
@@ -51,11 +47,9 @@ public class BusController {
     public ResponseEntity<List<BusDTO>> getBuses(@RequestParam String source,
                                                  @RequestParam String destination,
                                                  @RequestParam String departureDate) throws ParseException {
-//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-//        LocalDate reservationDate = LocalDate.parse(departureDate, formatter);
-        Date date=new SimpleDateFormat("yyyy-MM-dd").parse(departureDate);
-        System.out.println("date = " + date);
-        List<BusDTO> busList = busServiceImpl.getBySourceDestinationAndDepartureDate(source, destination, date);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate reservationDate = LocalDate.parse(departureDate, formatter);
+        List<BusDTO> busList = busServiceImpl.getBySourceDestinationAndDepartureDate(source, destination, reservationDate);
         return new ResponseEntity<>(busList, HttpStatus.OK);
     }
 }

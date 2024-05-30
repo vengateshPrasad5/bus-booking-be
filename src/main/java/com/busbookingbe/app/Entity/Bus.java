@@ -7,8 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Date;
+import java.time.LocalTime;
 import java.util.List;
 
 @Entity
@@ -23,11 +22,14 @@ public class Bus {
     private String name;
     private String source;
     private String destination;
+    @Column(name = "departure_date")
+    private LocalDate departureDate;
     @Column(name = "departure_time")
-    @Temporal(TemporalType.DATE)
-    private Date departureTime;
+    private LocalTime departureTime;
+    @Column(name = "arrival_date")
+    private LocalDate arrivalDate;
     @Column(name = "arrival_time")
-    private LocalDateTime arrivalTime;
+    private LocalTime arrivalTime;
     private long price;
     @Column(name = "bus_type")
     private String busType;
@@ -37,11 +39,4 @@ public class Bus {
     @OneToMany(mappedBy = "bus", cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<Seat> seats;
-
-//    @OneToMany(mappedBy = "bus" , cascade = CascadeType.ALL)
-//    private List<Seat> seat;
-
-//    @OneToMany(mappedBy = "bus", cascade = CascadeType.ALL)
-//    private List<Booking> bookings;
-
 }
