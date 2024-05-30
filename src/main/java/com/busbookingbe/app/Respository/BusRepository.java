@@ -1,5 +1,6 @@
 package com.busbookingbe.app.Respository;
 
+import com.busbookingbe.app.Dto.BusDTO;
 import com.busbookingbe.app.Entity.Bus;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -15,7 +16,7 @@ public interface BusRepository extends JpaRepository<Bus,Long> {
     @Query(value = "SELECT * FROM bus WHERE source =:source AND " +
             "destination =:destination AND departure_date =:departureDate",
             nativeQuery = true)
-    List<Bus> findBySourceAndDestinationAndDepartureDate(
+    List<BusDTO> findBySourceAndDestinationAndDepartureDate(
             @Param("source") String source ,
             @Param("destination") String destination,
             @Param("departureDate") LocalDate departureTime);
