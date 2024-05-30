@@ -3,8 +3,10 @@ package com.busbookingbe.app.Controller;
 import com.busbookingbe.app.Dto.JwtAuthResponse;
 import com.busbookingbe.app.Dto.LoginRequestDTO;
 import com.busbookingbe.app.Dto.RegisterDTO;
+import com.busbookingbe.app.Dto.UserProfileDTO;
 import com.busbookingbe.app.Service.AuthService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,5 +30,11 @@ public class AuthController {
         String response = authService.register(registerDto);
 
         return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("userProfile")
+    public ResponseEntity<UserProfileDTO> userProfile(@RequestParam String userName) {
+        UserProfileDTO user = authService.getUser(userName);
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 }

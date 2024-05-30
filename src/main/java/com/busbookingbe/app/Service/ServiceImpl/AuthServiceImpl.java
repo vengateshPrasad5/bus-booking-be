@@ -3,6 +3,7 @@ package com.busbookingbe.app.Service.ServiceImpl;
 import com.busbookingbe.app.Dto.JwtAuthResponse;
 import com.busbookingbe.app.Dto.LoginRequestDTO;
 import com.busbookingbe.app.Dto.RegisterDTO;
+import com.busbookingbe.app.Dto.UserProfileDTO;
 import com.busbookingbe.app.Entity.Role;
 import com.busbookingbe.app.Entity.User;
 import com.busbookingbe.app.Exception.CustomAPIException;
@@ -11,6 +12,7 @@ import com.busbookingbe.app.Respository.UserRepository;
 import com.busbookingbe.app.Security.JwtUtil;
 import com.busbookingbe.app.Service.AuthService;
 import lombok.AllArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -31,7 +33,7 @@ public class AuthServiceImpl implements AuthService {
     private PasswordEncoder passwordEncoder;
     private AuthenticationManager authenticationManager;
     private JwtUtil jwtUtil;
-
+    private ModelMapper modelMapper;
 
     @Override
     public String register(RegisterDTO registerDto) {
@@ -88,5 +90,11 @@ public class AuthServiceImpl implements AuthService {
         jwtAuthResponse.setUserName(userOptional.get().getUserName());
 
         return jwtAuthResponse;
+    }
+
+    @Override
+    public UserProfileDTO getUser(String userName) {
+        User user = userRepository.findByUserNameOrEmailId( userName,userName).get();
+        return modelMapper.map(user,UserProfileDTO.class);
     }
 }
