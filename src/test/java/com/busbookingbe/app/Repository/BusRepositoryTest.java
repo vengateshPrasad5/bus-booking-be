@@ -1,6 +1,6 @@
 package com.busbookingbe.app.Repository;
 
-import com.busbookingbe.app.Entity.Booking;
+import com.busbookingbe.app.Dto.BusDTO;
 import com.busbookingbe.app.Entity.Bus;
 import com.busbookingbe.app.Respository.BusRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -10,6 +10,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -33,8 +34,10 @@ public class BusRepositoryTest {
         bus.setName("ParveenTravels");
         bus.setSource("Chennai");
         bus.setDestination("Bangalore");
-        bus.setArrivalTime("2024-05-24 21:40:00");
-        bus.setDepartureTime("2024-05-23 06:40:00");
+        bus.setArrivalDate(LocalDate.parse("2024-05-24 21:40:00"));
+        bus.setArrivalTime(LocalTime.parse("2024-05-24 21:40:00"));
+        bus.setDepartureDate(LocalDate.parse("2024-05-23 06:40:00"));
+        bus.setDepartureTime(LocalTime.parse("2024-05-23 06:40:00"));
         bus.setPrice(600L);
         bus.setBusType("Sleeper");
         bus.setNumberOfSeats(36);
@@ -43,8 +46,10 @@ public class BusRepositoryTest {
         bus1.setName("KPNTravels");
         bus1.setSource("Chennai");
         bus1.setDestination("Bangalore");
-        bus1.setArrivalTime("2024-05-24 21:40:00");
-        bus1.setDepartureTime("2024-05-23 06:40:00");
+        bus1.setArrivalDate(LocalDate.parse("2024-05-24 21:40:00"));
+        bus1.setArrivalTime(LocalTime.parse("2024-05-24 21:40:00"));
+        bus1.setDepartureDate(LocalDate.parse("2024-05-23 06:40:00"));
+        bus1.setDepartureTime(LocalTime.parse("2024-05-23 06:40:00"));
         bus1.setPrice(600L);
         bus1.setBusType("Sleeper");
         bus1.setNumberOfSeats(36);
@@ -95,7 +100,7 @@ public class BusRepositoryTest {
         busRepository.save(bus1);
         String dateString  = "2024-05-23";
         LocalDate date = LocalDate.parse(dateString);
-        List<Bus> sourceList = busRepository.findBySourceDestinationAndDepartureDate("Chennai","Bangalore", dateString);
+        List<BusDTO> sourceList = busRepository.findBySourceAndDestinationAndDepartureDate("Chennai","Bangalore", date);
         assertThat(sourceList).isNotNull();
         assertThat(sourceList).hasSizeGreaterThan(0);
     }
@@ -106,7 +111,7 @@ public class BusRepositoryTest {
         busRepository.save(bus1);
         String dateString  = "2024-05-25";
         LocalDate date = LocalDate.parse(dateString);
-        List<Bus> sourceList = busRepository.findBySourceDestinationAndDepartureDate("Madurai","Bangalore", dateString);
+        List<BusDTO> sourceList = busRepository.findBySourceAndDestinationAndDepartureDate("Madurai","Bangalore", date);
         assertThat(sourceList).isEmpty();
     }
 }

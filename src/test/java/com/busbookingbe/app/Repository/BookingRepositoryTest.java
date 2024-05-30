@@ -11,6 +11,8 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 @DataJpaTest
@@ -43,8 +45,6 @@ public class BookingRepositoryTest {
 
         List<Passenger> passengerList1 = List.of(passenger2);
 
-
-
         user.setUserId(1L);
         user.setUserName("John");
         user.setEmailId("email@example.com");
@@ -54,8 +54,10 @@ public class BookingRepositoryTest {
         bus.setName("ParveenTravels");
         bus.setSource("Chennai");
         bus.setDestination("Bangalore");
-        bus.setArrivalTime("2024-05-22 21:40:00");
-        bus.setDepartureTime("2024-05-23 06:40:00");
+        bus.setArrivalDate(LocalDate.parse("2024-05-23 21:40:00"));
+        bus.setArrivalTime(LocalTime.parse("2024-05-23 21:40:00"));
+        bus.setDepartureDate(LocalDate.parse("2024-05-24 06:40:00"));
+        bus.setDepartureTime(LocalTime.parse("2024-05-24 06:40:00"));
         bus.setPrice(600L);
         bus.setBusType("Sleeper");
         bus.setNumberOfSeats(36);
