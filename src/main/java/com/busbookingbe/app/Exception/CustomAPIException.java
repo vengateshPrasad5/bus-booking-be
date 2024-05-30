@@ -1,10 +1,12 @@
 package com.busbookingbe.app.Exception;
 
 import lombok.AllArgsConstructor;
-import lombok.Setter;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.springframework.http.HttpStatus;
 
-@Setter
+@EqualsAndHashCode(callSuper = true)
+@Data
 @AllArgsConstructor
 public class CustomAPIException extends RuntimeException {
     private HttpStatus status;
