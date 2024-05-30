@@ -29,12 +29,12 @@ public class SecurityConfig {
     @Bean
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
 
-        http.addFilterBefore(corsFilter, SessionManagementFilter.class)
+        http
+                .addFilterBefore(corsFilter, SessionManagementFilter.class)
                 .csrf(csrf-> csrf.disable())
 //                .cors(cors-> cors.disable())
                 .anonymous(anonymous->anonymous.disable());
         http.authorizeHttpRequests(auth->auth
-//                .requestMatchers("/api/v1/passenger/**").authenticated()
                 .requestMatchers( "/api/auth/**", "/api/v1/bus/**").permitAll()
                 .requestMatchers("swagger-ui/**", "/resources/**", "/static/**", "v3/api-docs/**").permitAll() //Swagger API
                 .anyRequest().authenticated());
