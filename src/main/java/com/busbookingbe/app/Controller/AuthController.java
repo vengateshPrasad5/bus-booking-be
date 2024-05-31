@@ -1,9 +1,6 @@
 package com.busbookingbe.app.Controller;
 
-import com.busbookingbe.app.Dto.JwtAuthResponse;
-import com.busbookingbe.app.Dto.LoginRequestDTO;
-import com.busbookingbe.app.Dto.RegisterDTO;
-import com.busbookingbe.app.Dto.UserProfileDTO;
+import com.busbookingbe.app.Dto.*;
 import com.busbookingbe.app.Service.AuthService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -28,7 +25,6 @@ public class AuthController {
     @PostMapping("register")
     public ResponseEntity<String> register(@RequestBody RegisterDTO registerDto) {
         String response = authService.register(registerDto);
-
         return ResponseEntity.ok(response);
     }
 
@@ -36,5 +32,11 @@ public class AuthController {
     public ResponseEntity<UserProfileDTO> userProfile(@RequestParam String userName) {
         UserProfileDTO user = authService.getUser(userName);
         return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
+    @PostMapping("changePassword")
+    public  ResponseEntity<String> passwordChange(@RequestBody PwdChangeDTO pwdChangeDTO){
+        String response = authService.changePassword(pwdChangeDTO);
+        return ResponseEntity.ok(response);
     }
 }

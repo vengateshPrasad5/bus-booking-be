@@ -1,9 +1,6 @@
 package com.busbookingbe.app.Service.ServiceImpl;
 
-import com.busbookingbe.app.Dto.JwtAuthResponse;
-import com.busbookingbe.app.Dto.LoginRequestDTO;
-import com.busbookingbe.app.Dto.RegisterDTO;
-import com.busbookingbe.app.Dto.UserProfileDTO;
+import com.busbookingbe.app.Dto.*;
 import com.busbookingbe.app.Entity.Role;
 import com.busbookingbe.app.Entity.User;
 import com.busbookingbe.app.Exception.CustomAPIException;
@@ -96,5 +93,22 @@ public class AuthServiceImpl implements AuthService {
     public UserProfileDTO getUser(String userName) {
         User user = userRepository.findByUserNameOrEmailId( userName,userName).get();
         return modelMapper.map(user,UserProfileDTO.class);
+    }
+
+    @Override
+    public String changePassword(PwdChangeDTO pwdChangeDTO) {
+        if (userRepository.existsByUserName(pwdChangeDTO.getUserName())) {
+            throw new CustomAPIException(HttpStatus.BAD_REQUEST, "Username already exists");
+        }
+        Optional<User> optUser = userRepository.findByUserNameOrEmailId(pwdChangeDTO.getUserName(), pwdChangeDTO.getUserName());
+        if(optUser.isPresent()){
+            User user = optUser.get();
+            if(!passwordEncoder.matches(pwdChangeDTO.getCurrentPwd(),user.getPassword())){
+                throw new CustomAPIException(HttpStatus.BAD_REQUEST,"Invalid Password");
+            }
+            user.setPassword(pwdChangeDTO.getNewPwd());
+            userRepository.save(user);
+        }
+        return "Password Change Successfully";
     }
 }
