@@ -32,7 +32,6 @@ public class CustomAuthenticationManager implements AuthenticationManager {
 
     private boolean isValidUser(String username, String password) {
         User user = userRepository.findByEmailId(username).get();
-        System.out.println("user = " + user);
         return user.getEmailId().equals(username) &&
                 passwordEncoder.matches(password, user.getPassword());
     }

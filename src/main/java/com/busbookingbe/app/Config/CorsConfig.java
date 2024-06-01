@@ -17,7 +17,7 @@ public class CorsConfig {
         // Allow all headers
         config.addAllowedHeader("*");
 
-        // Allow HTTP methods you need (GET, POST, etc.)
+        // Allow all HTTP methods you need
         config.addAllowedMethod("GET");
         config.addAllowedMethod("POST");
         config.addAllowedMethod("PUT");

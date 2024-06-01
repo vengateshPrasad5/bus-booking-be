@@ -104,7 +104,7 @@ public class AuthServiceImpl implements AuthService {
         if(optUser.isPresent()){
             User user = optUser.get();
             if(!passwordEncoder.matches(pwdChangeDTO.getCurrentPwd(),user.getPassword())){
-                throw new CustomAPIException(HttpStatus.BAD_REQUEST,"Invalid Password");
+                throw new CustomAPIException(HttpStatus.BAD_REQUEST,"Current Password Invalid");
             }
             String newPassword  = passwordEncoder.encode(pwdChangeDTO.getNewPwd());
             user.setPassword(newPassword);
