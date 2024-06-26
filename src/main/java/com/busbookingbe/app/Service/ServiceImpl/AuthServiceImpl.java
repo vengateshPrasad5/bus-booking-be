@@ -4,6 +4,7 @@ import com.busbookingbe.app.Dto.*;
 import com.busbookingbe.app.Entity.Role;
 import com.busbookingbe.app.Entity.User;
 import com.busbookingbe.app.Exception.CustomAPIException;
+import com.busbookingbe.app.Exception.ResourceNotFoundException;
 import com.busbookingbe.app.Respository.RoleRepository;
 import com.busbookingbe.app.Respository.UserRepository;
 import com.busbookingbe.app.Security.JwtUtil;
@@ -36,11 +37,11 @@ public class AuthServiceImpl implements AuthService {
     public String register(RegisterDTO registerDto) {
         // To check whether a user already exists with the same username
         if (userRepository.existsByUserName(registerDto.getUserName())) {
-            throw new CustomAPIException(HttpStatus.BAD_REQUEST, "Username already exists");
+            throw new ResourceNotFoundException("Username already exists");
         }
         // To check whether a user already exists with the same email
         if (userRepository.existsByEmailId(registerDto.getEmailId())) {
-            throw new CustomAPIException(HttpStatus.BAD_REQUEST, "Email already exists");
+            throw new ResourceNotFoundException("Email already exists");
         }
 
         // Creating a user from the DTO and to store in the user table
@@ -97,9 +98,6 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public String changePassword(PwdChangeDTO pwdChangeDTO) {
-        if (userRepository.existsByUserName(pwdChangeDTO.getUserName())) {
-            throw new CustomAPIException(HttpStatus.BAD_REQUEST, "Username already exists");
-        }
         Optional<User> optUser = userRepository.findByUserNameOrEmailId(pwdChangeDTO.getUserName(), pwdChangeDTO.getUserName());
         if(optUser.isPresent()){
             User user = optUser.get();
