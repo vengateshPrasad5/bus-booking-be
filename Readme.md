@@ -51,6 +51,13 @@ logging.level.org.springframework.security=DEBUG
 logging.level.org.hibernate.SQL=DEBUG
 logging.level.org.hibernate.type=TRACE
 
+###  POSTMAN API URL
+
+* To execute the API URL
+* http://localhost:8080/swagger-ui/index.html
+* Use Postman tool to execute API get token from login USER and run URL
+by adding the token to the Bearer Token and execute required methods
+
 ### Run the Application from My Application
 * By Run button or use
 * mvn spring-boot:run
