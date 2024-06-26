@@ -1,6 +1,7 @@
 package com.busbookingbe.app.Controller;
 
 import com.busbookingbe.app.Dto.BusDTO;
+import com.busbookingbe.app.Exception.ResourceNotFoundException;
 import com.busbookingbe.app.Service.ServiceImpl.BusServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,35 +22,55 @@ public class BusController {
 
     @GetMapping("/getSourceList")
     public ResponseEntity<List<String>> sourceList(){
-        List<String> sources = busServiceImpl.getDistinctSource();
-        return new ResponseEntity<>(sources , HttpStatus.OK);
+        try {
+            List<String> sources = busServiceImpl.getDistinctSource();
+            return new ResponseEntity<>(sources , HttpStatus.OK);
+        } catch (ResourceNotFoundException e) {
+            throw new ResourceNotFoundException("Source Not Found");
+        }
     }
 
     @GetMapping("/getDepartureList")
     public ResponseEntity<List<String>> destinationList(){
-        List<String> destinations = busServiceImpl.getDistinctDestination();
-        return new ResponseEntity<>(destinations , HttpStatus.OK);
+        try {
+            List<String> destinations = busServiceImpl.getDistinctDestination();
+            return new ResponseEntity<>(destinations , HttpStatus.OK);
+        } catch (ResourceNotFoundException e) {
+            throw new ResourceNotFoundException("Source Not Found");
+        }
     }
 
     @GetMapping("/getBusList")
     public ResponseEntity<List<BusDTO>> getAllBus(){
-      List<BusDTO> busList = busServiceImpl.getAllBuses();
-      return new ResponseEntity<>(busList , HttpStatus.OK);
+        try {
+            List<BusDTO> busList = busServiceImpl.getAllBuses();
+            return new ResponseEntity<>(busList , HttpStatus.OK);
+        } catch (ResourceNotFoundException e) {
+            throw new ResourceNotFoundException("Source Not Found");
+        }
     }
 
     @GetMapping("/getBusById/{id}")
     public ResponseEntity<BusDTO> getByBusId(@PathVariable("id")Long id){
-        BusDTO bus = busServiceImpl.getBusById(id);
-        return new ResponseEntity<>(bus,HttpStatus.OK);
+        try {
+            BusDTO bus = busServiceImpl.getBusById(id);
+            return new ResponseEntity<>(bus,HttpStatus.OK);
+        } catch (ResourceNotFoundException e) {
+            throw new ResourceNotFoundException("Source Not Found");
+        }
     }
 
     @GetMapping("/searchBus")
     public ResponseEntity<List<BusDTO>> getBuses(@RequestParam String source,
                                                  @RequestParam String destination,
                                                  @RequestParam String departureDate) throws ParseException {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate reservationDate = LocalDate.parse(departureDate, formatter);
-        List<BusDTO> busList = busServiceImpl.getBySourceDestinationAndDepartureDate(source, destination, reservationDate);
-        return new ResponseEntity<>(busList, HttpStatus.OK);
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDate reservationDate = LocalDate.parse(departureDate, formatter);
+            List<BusDTO> busList = busServiceImpl.getBySourceDestinationAndDepartureDate(source, destination, reservationDate);
+            return new ResponseEntity<>(busList, HttpStatus.OK);
+        } catch (ResourceNotFoundException e) {
+            throw new ResourceNotFoundException("Source Not Found");
+        }
     }
 }
